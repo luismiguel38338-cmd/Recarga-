@@ -1,0 +1,6 @@
+{
+  "name": "RecargaMundial",
+  "description": "Plataforma web interactiva para recargas móviles internacionales rápidas y seguras con pagos en línea.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
