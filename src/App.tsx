@@ -8,6 +8,7 @@ import { HistorySidebar } from './components/HistorySidebar';
 import { UnlockModal } from './components/UnlockModal';
 import { CheckoutModal } from './components/CheckoutModal';
 import { ReceiptModal } from './components/ReceiptModal';
+import { LiveStatusModal } from './components/LiveStatusModal';
 import { Toast } from './components/Toast';
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
   const [activeCountry, setActiveCountry] = useState<Country | null>(null);
 
   const [selectedReceipt, setSelectedReceipt] = useState<RechargeHistoryItem | null>(null);
+  const [isLiveStatusOpen, setIsLiveStatusOpen] = useState<boolean>(false);
 
   // Prefill state for repeat recharge
   const [prefillData, setPrefillData] = useState<{
@@ -149,6 +151,7 @@ export default function App() {
           unlockedCount={unlockedCountries.size}
           totalCountries={COUNTRIES_DATA.length}
           onOpenUnlock={() => handleOpenUnlock(14)}
+          onOpenLiveStatus={() => setIsLiveStatusOpen(true)}
         />
 
         {/* Hero Section */}
@@ -232,6 +235,12 @@ export default function App() {
       <ReceiptModal
         item={selectedReceipt}
         onClose={() => setSelectedReceipt(null)}
+        onToast={showToast}
+      />
+
+      <LiveStatusModal
+        isOpen={isLiveStatusOpen}
+        onClose={() => setIsLiveStatusOpen(false)}
         onToast={showToast}
       />
 

@@ -1,16 +1,18 @@
 import React from 'react';
-import { ShieldCheck, ArrowUpRight, Zap } from 'lucide-react';
+import { ShieldCheck, ArrowUpRight, Zap, Radio } from 'lucide-react';
 
 interface HeaderProps {
   unlockedCount: number;
   totalCountries: number;
   onOpenUnlock: () => void;
+  onOpenLiveStatus: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   unlockedCount,
   totalCountries,
   onOpenUnlock,
+  onOpenLiveStatus,
 }) => {
   return (
     <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 mb-4 border-b border-white/10">
@@ -38,6 +40,20 @@ export const Header: React.FC<HeaderProps> = ({
 
       <div className="flex flex-wrap items-center gap-2.5">
         <button
+          onClick={onOpenLiveStatus}
+          id="live-status-btn"
+          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#10b981]/15 hover:bg-[#10b981]/25 border border-[#10b981]/35 text-xs text-[#34d399] font-semibold transition-all hover:scale-[1.02]"
+          title="Ver auditoría y estado de conexión en vivo con PayPal y Reloadly"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#10b981]"></span>
+          </span>
+          <Radio className="w-3.5 h-3.5 text-[#10b981]" />
+          <span>Conexión Real</span>
+        </button>
+
+        <button
           onClick={onOpenUnlock}
           id="status-countries-btn"
           className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.1] border border-white/10 text-xs text-[#c9d8e8] transition-colors"
@@ -54,16 +70,13 @@ export const Header: React.FC<HeaderProps> = ({
 
         <div 
           id="security-indicator"
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#26d39b]/10 border border-[#26d39b]/25 text-xs text-[#69e2ba] font-medium"
+          className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#26d39b]/10 border border-[#26d39b]/25 text-xs text-[#69e2ba] font-medium"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#26d39b] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#26d39b]"></span>
-          </span>
           <ShieldCheck className="w-3.5 h-3.5 text-[#26d39b]" />
-          <span>Plataforma protegida</span>
+          <span>100% Protegido</span>
         </div>
       </div>
     </header>
   );
 };
+

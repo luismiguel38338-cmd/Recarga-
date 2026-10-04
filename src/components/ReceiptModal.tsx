@@ -85,6 +85,15 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ item, onClose, onToa
             <span>Estado:</span>
             <span className="font-extrabold text-[#26d39b]">{item.status} ✓</span>
           </div>
+          <div className="flex justify-between text-[11px] text-[#7188a1]">
+            <span>Red de Entrega:</span>
+            <span className="text-[#38bdf8]">SIM Celular Directa (Reloadly Airtime)</span>
+          </div>
+        </div>
+
+        <div className="p-2.5 rounded-xl bg-[#10b981]/10 border border-[#10b981]/25 flex items-center gap-2 mb-4 text-[11px] text-[#34d399]">
+          <ShieldCheck className="w-4 h-4 shrink-0 text-[#10b981]" />
+          <span>Comprobante válido y auditable en la red móvil de {item.operator}</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-3">

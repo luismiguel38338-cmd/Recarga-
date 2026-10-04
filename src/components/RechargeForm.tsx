@@ -74,6 +74,7 @@ export const RechargeForm: React.FC<RechargeFormProps> = ({
 
     const clean = phoneDigits.replace(/\D/g, '');
 
+    // Fallback heuristic detection first
     if (currentCountry.iso === 'DO') {
       if (clean.startsWith('809') || clean.startsWith('829') || clean.startsWith('849')) {
         const lead = clean.slice(3, 4);
@@ -102,6 +103,29 @@ export const RechargeForm: React.FC<RechargeFormProps> = ({
       } else {
         setDetectedOperator(null);
       }
+    }
+
+    // If 6 or more digits, query live backend auto-detect endpoint
+    if (clean.length >= 6) {
+      const controller = new AbortController();
+      fetch('/api/reloadly/auto-detect', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: currentCountry.prefix.replace(/\D/g, '') + clean,
+          countryCode: currentCountry.iso,
+        }),
+        signal: controller.signal,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.name) {
+            setDetectedOperator(data.name);
+          }
+        })
+        .catch(() => {});
+
+      return () => controller.abort();
     }
   }, [phoneDigits, currentCountry]);
 
